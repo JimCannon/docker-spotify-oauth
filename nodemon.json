@@ -1,5 +1,5 @@
 {
-  "watch": [ "./" ],
+  "watch": [ "src" ],
   "ext": "js",
-  "exec": "./app.js"
+  "exec": "npx babel-node ./src/app.js"
 }

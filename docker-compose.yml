@@ -9,7 +9,7 @@ services:
     ports:
       - '3000:3000' # <local port>:<docker port>
     volumes:
-      - ./:/app:cached
+      - .:/app:cached
     depends_on:
       - mongodb
 
