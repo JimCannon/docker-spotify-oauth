@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  node:
+    build: .
+    image: node
+    container_name: node
+    stdin_open: true
+    tty: true
+    ports:
+      - '3000:3000' # <local port>:<docker port>
+    volumes:
+      - ./:/app:cached
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:4.4-rc
+    container_name: mongodb
+    restart: always
+    tty: true
+    ports:
+      - '27017:27017' # <local port>:<docker port>
+    volumes:
+      - mongodb:/data/mongo/db   
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'password'
+
+volumes:
+    mongodb:
