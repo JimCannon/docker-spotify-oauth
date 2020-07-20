@@ -56,7 +56,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email user-read-playback-state';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -109,29 +109,29 @@ app.get('/callback', function(req, res) {
         };
 
         // Vulfpeck
-        spotifyApi.setAccessToken(access_token);
-        // Get an artist
-        spotifyApi.getArtist('7pXu47GoqSYRajmBCjxdD6')
-        .then(function(data) {
-          console.log('Artist information', data.body);
-        }, function(err) {
-          console.error(err);
-        });
+        //spotifyApi.setAccessToken(access_token);
+        //// Get an artist
+        //spotifyApi.getArtist('7pXu47GoqSYRajmBCjxdD6')
+        //.then(function(data) {
+        //  console.log('Artist information', data.body);
+        //}, function(err) {
+        //  console.error(err);
+        //});
 
-        // Search tracks whose name, album or artist contains 'Anderson Paak'
-        spotifyApi.searchTracks('Anderson Paak')
-        .then(function(data) {
-          console.log('Search by "Anderson Paak"', data.body);
-        }, function(err) {
-          console.error(err);
-        });
+        //// Search tracks whose name, album or artist contains 'Anderson Paak'
+        //spotifyApi.searchTracks('Anderson Paak')
+        //.then(function(data) {
+        //  console.log('Search by "Anderson Paak"', data.body);
+        //}, function(err) {
+        //  console.error(err);
+        //});
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log(body);
         });
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
+        res.redirect('http://localhost:3001/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
