@@ -1,7 +1,23 @@
 version: '3.7'
 services:
+  client:
+    build: ./client
+    image: client
+    container_name: client
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development
+    ports:
+      - '3001:3000' # <local port>:<docker port>
+    volumes:
+      - ./client:/app:cached
+    depends_on:
+      - node
+
   node:
-    build: .
+    build: ./server
     image: node
     container_name: node
     stdin_open: true
@@ -12,7 +28,7 @@ services:
     ports:
       - '3000:3000' # <local port>:<docker port>
     volumes:
-      - .:/app:cached
+      - ./server:/app:cached
     depends_on:
       - mongodb
 
